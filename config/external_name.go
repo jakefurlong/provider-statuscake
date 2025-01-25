@@ -10,7 +10,14 @@ import "github.com/crossplane/upjet/pkg/config"
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	// "null_resource": config.IdentifierFromProvider,
+
+	"statuscake_contact_group":      config.IdentifierFromProvider,
+	"statuscake_heartbeat_check":    config.IdentifierFromProvider,
+	"statuscake_maintenance_window": config.IdentifierFromProvider,
+	"statuscake_pagespeed_check":    config.IdentifierFromProvider,
+	"statuscake_ssl_check":          config.IdentifierFromProvider,
+	"statuscake_uptime_check":       config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

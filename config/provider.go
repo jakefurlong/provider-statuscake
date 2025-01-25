@@ -10,12 +10,17 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 
-	"github.com/upbound/upjet-provider-template/config/null"
+	"github.com/jakefurlong/provider-github/config/contact_group"
+	"github.com/jakefurlong/provider-github/config/heartbeat_check"
+	"github.com/jakefurlong/provider-github/config/maintenance_window"
+	"github.com/jakefurlong/provider-github/config/pagespeed_check"
+	"github.com/jakefurlong/provider-github/config/ssl_check"
+	"github.com/jakefurlong/provider-github/config/uptime_check"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/upbound/upjet-provider-template"
+	resourcePrefix = "statuscake"
+	modulePath     = "github.com/jakefurlong/provider-statuscake"
 )
 
 //go:embed schema.json
@@ -27,7 +32,7 @@ var providerMetadata string
 // GetProvider returns provider configuration
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithRootGroup("template.upbound.io"),
+		ujconfig.WithRootGroup("upbound.io"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
@@ -36,7 +41,12 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		contact_group.Configure,
+		heartbeat_check.Configure,
+		maintenance_window.Configure,
+		pagespeed_check.Configure,
+		ssl_check.Configure,
+		uptime_check.Configure,
 	} {
 		configure(pc)
 	}
